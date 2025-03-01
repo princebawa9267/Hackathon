@@ -4,6 +4,7 @@ const DragAndDrop = () => {
     const [videoFile, setVideoFile] = useState(null);
     const [videoUrl, setVideoUrl] = useState('');
     const [isPlaying, setIsPlaying] = useState(false);
+    const [postureResult, setPostureResult] = useState('');
     const videoRef = useRef(null);
 
     const handleDrop = (e) => {
@@ -52,6 +53,7 @@ const DragAndDrop = () => {
         setVideoFile(null);
         setVideoUrl('');
         setIsPlaying(false);
+        setPostureResult('');
     };
 
     const handleSubmit = async () => {
@@ -61,18 +63,17 @@ const DragAndDrop = () => {
         }
 
         const formData = new FormData();
-        formData.append('video', videoFile);
+        formData.append('file', videoFile);
 
         try {
-            const response = await fetch('https://your-backend-endpoint.com/upload', {
+            const response = await fetch('http://127.0.0.1:8000/evaluate_posture/', {
                 method: 'POST',
                 body: formData,
             });
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Video uploaded successfully!');
-                console.log('Server response:', result);
+                setPostureResult(result.posture);
             } else {
                 throw new Error('Failed to upload video');
             }
@@ -92,28 +93,29 @@ const DragAndDrop = () => {
                 width: '100vw',
                 position: 'relative',
                 paddingTop: '150px',
-                backgroundColor: "black",  // Changed to white
+                backgroundColor: "black",
                 minHeight: "100vh",
-                overflowX:"hidden"
+                overflowX: "hidden",
             }}
         >
             <div
                 className="container"
                 style={{
-                    backgroundColor: 'white',  // Changed to white
+                    backgroundColor: 'white',
                     padding: '20px',
-                    color: 'black',  // Adjust text color for visibility
+                    color: 'black',
                     width: '50vw',
                     position: 'relative',
-                    border: '2px solid #ea9215',  // Added border
-                    borderRadius: '10px',  // Optional: rounded corners
-                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',  // Optional: subtle shadow
-                    marginBottom:"20px"
+                    border: '2px solid #ea9215',
+                    borderRadius: '10px',
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                    marginBottom: "20px",
                 }}
             >
                 <h1 className="text-center mb-4">MP4 Video Uploader</h1>
-
-                {/* Hide drag and drop if video is uploaded */}
+                {postureResult && (
+                    <h3 style={{ textAlign: 'center', color: '#ea9215' }}>Posture: {postureResult}</h3>
+                )}
                 {!videoUrl && (
                     <div
                         className="drop-zone"
@@ -148,10 +150,10 @@ const DragAndDrop = () => {
                             ref={videoRef}
                             src={videoUrl}
                             controls={false}
-                            style={{ width: '10vw', maxWidth: '10vw', marginBottom: '20px',border: "2px solid #ea9215"}}
+                            style={{ width: '10vw', maxWidth: '10vw', marginBottom: '20px', border: "2px solid #ea9215" }}
                             muted
                         />
-                        <div className="button-group" style={{marginBottom:"20px"}}>
+                        <div className="button-group" style={{ marginBottom: "20px" }}>
                             <button className="btn btn-success mx-2" onClick={playVideo} disabled={isPlaying}>
                                 Play
                             </button>
@@ -165,9 +167,9 @@ const DragAndDrop = () => {
                                 Remove
                             </button>
                         </div>
-                            <button className="btn btn-success mx-2" onClick={handleSubmit}>
-                                Submit
-                            </button>
+                        <button className="btn btn-success mx-2" onClick={handleSubmit}>
+                            Submit
+                        </button>
                     </div>
                 )}
             </div>

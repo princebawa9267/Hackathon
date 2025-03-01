@@ -18,11 +18,12 @@ function App() {
     <div>
       <BrowserRouter>
       <Navbar/>
-      {/* <ChatBot/> */}
       {/* <div style={{height:"90px",backgroundColor:"black"}}></div> */}
       <ReactRouter/>
       </BrowserRouter>
       <GoToTop/>
+      <ChatBot/>
+      
     </div>
   )
 }

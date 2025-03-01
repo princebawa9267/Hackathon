@@ -5,26 +5,36 @@ export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col items-end">
+    <div style={{ position: "fixed", bottom: "20px", right: "20px", display: "flex", flexDirection: "column", alignItems: "flex-end" ,zIndex: 9999}}>
       {isOpen && (
-        <div className="bg-white shadow-lg rounded-2xl p-4 w-80 mb-2 border border-gray-300">
-          <h2 className="text-lg font-semibold mb-2">Chat with AI</h2>
-          <div className="h-40 overflow-y-auto text-sm text-gray-700">
+        <div style={{ backgroundColor: "white", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", borderRadius: "12px", padding: "16px", width: "300px", border: "1px solid #ccc", marginBottom: "10px"}}>
+          <h2 style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "10px" }}>Chat with AI</h2>
+          <div style={{ height: "150px", overflowY: "auto", fontSize: "14px", color: "#555", padding: "8px", border: "1px solid #ddd", borderRadius: "6px", backgroundColor: "#f9f9f9" }}>
             <p>👋 Hello! How can I assist you today?</p>
           </div>
           <input
             type="text"
             placeholder="Type a message..."
-            className="w-full p-2 mt-2 border rounded-lg text-sm"
+            style={{ width: "100%", padding: "8px", marginTop: "8px", border: "1px solid #ddd", borderRadius: "6px", fontSize: "14px" }}
           />
         </div>
       )}
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-600 p-3 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+        style={{
+          backgroundColor: "#007bff",
+          padding: "12px",
+          borderRadius: "50%",
+          boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.2)",
+          border: "none",
+          cursor: "pointer",
+          transition: "background-color 0.3s"
+        }}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = "#007bff")}
       >
-        <MessageCircle className="text-white w-6 h-6" />
+        <MessageCircle style={{ color: "white", width: "24px", height: "24px" }} />
       </button>
     </div>
   );
