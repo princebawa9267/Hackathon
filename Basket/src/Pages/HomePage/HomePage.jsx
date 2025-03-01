@@ -1,9 +1,10 @@
 import React from 'react'
 import IntroSection from './IntroSection';
+import AboutSection from './AboutSection';
 
 const HomePage = () => {
   return (
-    <div className='HeroSection' style={{ marginTop: "80px",width:"100vw" }}>
+    <div className='HeroSection' style={{ marginTop: "80px", width: "100vw", overflowX: "hidden" }}>
       {/* <div>
         <video width="1250" autoPlay loop muted>
           <source src={Video} type="video/mp4" />
@@ -13,7 +14,7 @@ const HomePage = () => {
         <IntroSection/>
       </div>
       <div>
-        {/* <AboutSection/> */}
+        <AboutSection/>
       </div>
       <div className='player-type'>
         {/* <Card/> */}
